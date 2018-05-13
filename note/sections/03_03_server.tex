@@ -423,34 +423,6 @@ public interface IDocumentService<T>
 
 В данном подразделе приведены сведения обо всех методах классов программного средства.
 
-% \begin{table}[!ht]
-% 	\caption{Классы и методы блока работы через протокол HTTPS}
-% 	\label{table:design:server:api}
-% 	\centering
-% 	\begin{tabular}{
-% 		|>{\raggedright}p{0.3\textwidth}|
-% 		 >{\raggedright}p{0.3\textwidth}|
-% 		 >{\raggedright\arraybackslash}p{0.32\textwidth}|
-% 	}
-% 	\hline
-% 	Класс & Метод & Описание \\ \hline
-	
-% 	FinanceManager
-% 	BotController & GetMessage(Update update) & Получает структуру Update, извлекает из нее нужные данные, передает управление в блок обработки команд. После получения списка сообщений, передает управление в блок обработки сообщений. \\ \hline
-
-% 	ControllerHelper & BuildKeyBoardMarkup(
-% List<string> options) & Строит и возвращает структуру InlineKeyBoardMarkup.
-% В качестве параметра принимает список строк, со значениями которых требуется построить виртуальные кнопки. В случае нечетного количества строк, последняя кнопка будет расположена на всю длину пространства. Вызывается в случае, если для вопроса бота требуется виртуальные кнопки. \\ \hline
-
-% 	BotExtensions & AddTelegramBot(this IServiceCollection services, IConfigurationRoot configuration) & Добавляет в контейнер Dependency Injection класс-обертку для посылки сообщений. \\ \hline
-
-% 	BotExtensions & UseTelegramBot(this IApplicationBuilder app, string webhookPath) & Метод расширения IApplicationBuilder. Устанавливает боту адрес webhook. Запускает бот. \\ \hline
-
-% 	Dependency
-% InjectionExtensions & AddAppDependencies(this IServiceCollection) & Метод расширения IServiceCollection. Устанавливает зависимости для сервисов. \\ \hline
-% 	\end{tabular}
-% \end{table}
-
 \begin{longtable}{|>{\raggedright}p{0.3\textwidth}|
 		 >{\raggedright}p{0.3\textwidth}|
 		 >{\raggedright\arraybackslash}p{0.32\textwidth}|} 
