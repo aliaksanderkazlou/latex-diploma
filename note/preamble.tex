@@ -143,23 +143,23 @@
 
 % Зачем: Задает стиль заголовков подразделов
 % Почему: Пункты 2.1.1, 2.2.5 и ПРИЛОЖЕНИЕ Л Требований по оформлению пояснительной записки.
+% \makeatletter
+% \renewcommand\subsection{%
+%   \@startsection{subsection}{2}%
+%     {\fivecharsapprox\bfseries}%
+%     {-1em \@plus -1ex \@minus -.2ex}%
+%     {1em \@plus .2ex}%
+%     {\raggedright\hyphenpenalty=10000\normalfont\normalsize}}
+% \makeatother
+% Полужирным и номер, и текст заголовка (если ваша кафедра не ПОИТ)
 \makeatletter
 \renewcommand\subsection{%
   \@startsection{subsection}{2}%
-    {\fivecharsapprox\bfseries}%
+    {\fivecharsapprox}%
     {-1em \@plus -1ex \@minus -.2ex}%
     {1em \@plus .2ex}%
-    {\raggedright\hyphenpenalty=10000\normalfont\normalsize}}
+    {\raggedright\hyphenpenalty=10000\normalfont\normalsize\bfseries}}
 \makeatother
-% Полужирным и номер, и текст заголовка (если ваша кафедра не ПОИТ)
-% \makeatletter
-% \renewcommand\subsection{%
-  % \@startsection{subsection}{2}%
-    % {\fivecharsapprox}%
-    % {-1em \@plus -1ex \@minus -.2ex}%
-    % {1em \@plus .2ex}%
-    % {\raggedright\hyphenpenalty=10000\normalfont\normalsize\bfseries}}
-% \makeatother
 
 
 % Зачем: Задает стиль заголовков пунктов
