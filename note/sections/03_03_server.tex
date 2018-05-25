@@ -31,20 +31,19 @@
 	\caption{Схема взаимодействия модулей программного средства}
 	\label{fig:design:architecture:structure_api}
 \end{figure}
-
 \subsubsection{} Модуль работы с данными через протокол HTTPS
 \label{sec:design:server:api}
 
-Отвечает за предоставление данных в определенном формате для клиентских приложений. Реализован в виде сервиса, основанного на \linebreak webhook. Webhooks позволяют уведомить сервера Telegram, что в случае, если появится сообщение для бота, отправлять их следует по ссылке, указанной в настройках конфигурации. Отпадает необходимость периодически опрашивать серверы самому, тем самым, снижается риск возникновения исключительных ситуаций в приложении. Однако, за это приходится платить установкой полноценного веб-сервера на машину, где предполагается запуск бота. Также, необходимо иметь SSL сертификат, так как webhooks в Telegram работают только по протоколу HTTPS.
+Отвечает за предоставление данных в определенном формате для клиентских приложений. Реализован в виде сервиса, основанного на \linebreak webhook. Webhooks позволяют уведомить сервера Telegram, что в случае, если появится сообщение для бота, отправлять данное сообщение следует по ссылке, указанной в настройках конфигурации. Отпадает необходимость периодически опрашивать серверы самому, тем самым, снижается риск возникновения исключительных ситуаций в приложении. Однако, за это приходится платить установкой полноценного веб-сервера на машину, где предполагается запуск бота. Также, необходимо иметь SSL сертификат, так как webhooks в Telegram работают только по протоколу HTTPS.
 
 Модуль содержит в себе единственный контроллер с одним методом GetMessage.
 
 Метод принимает структуру Update, которая содержит в себе все данные о сообщении, в том числе:
 
 \begin{itemize}
-	\item Message.Text – текст сообщения.
-	\item Message.From.FirstName – имя пользователя.
-	\item MessageFrom.LastName – фамилия пользователя.
+	\item Message.Text – текст сообщения;
+	\item Message.From.FirstName – имя пользователя;
+	\item MessageFrom.LastName – фамилия пользователя;
 	\item MessageFrom.ChatId – уникальный идентификатор чата.
 \end{itemize}
 
@@ -98,8 +97,8 @@ InjectionExtensions & AddDocumentServices
 После получения нужных данных, управление передается в модуль обработки команд, который возвращает список структур \linebreak HandlerServiceResult, содержащих в себе следующие свойства:
 
 \begin{itemize}
-	\item StatusCode – код результата.
-	\item Message – сообщение для отправки клиенту.
+	\item StatusCode – код результата;
+	\item Message – сообщение для отправки клиенту;
 	\item Helper – вспомогательное свойство, которое содержит список
 вариантов ответов на вопросы, задаваемые ботом пользователю.
 \end{itemize}
@@ -289,7 +288,7 @@ public enum CategoryTypeEnum
 \end{sidewaysfigure}
 
 
-\vskip 0.5in
+\newpage
 
 Метод HandleOperationQuestion класса отвечает за обработку ответов пользователей на вопросы бота. На вход принимает строку-ответ пользователя, и структуру, описывающую самого пользователя.
 
@@ -298,7 +297,7 @@ public enum CategoryTypeEnum
 
 В случае, если бот не поддерживает данную команду, либо внутри программного средства было сгенерировано исключение, вызывается метод Handle класса UnhandledMessageService. В него передаются сведения о пользователе, сообщение пользователя, а также исключение. Обработчик упаковывает все данные в структуру UnhandledMessage и, с помощью модуля работы с базой данных, записывает её в базу. 
 
-\vskip 0.7in
+\newpage
 
 Структура UnhandledMessage описана в листинге ниже:
 
@@ -359,7 +358,9 @@ public class UnhandledMessage : BaseModel
 	\centering 1 & \centering 2 & \centering\arraybackslash 3 \\
 	\hline
 
-	CommandService & ExecuteCommand(string command, Message message) & Извлекает из базы данных пользователя, исходя из контекста пользователя, передает управление в классы-обработчики команд. В случае возникновения исключительной ситуации, вызывает обработчик UnhandledMessageService. \\ \hline
+	CommandService & ExecuteCommand(string command, Message message) & Извлекает из базы данных пользователя, исходя из контекста пользователя, передает управление в  \\
+
+	& & классы-обработчики команд. В случае возникновения исключительной ситуации, вызывает обработчик UnhandledMessage \linebreak Service. \\ \hline
 
 	CommandService & InitializeCommand
 HandlerDictionary & Инициализирует словарь, ключом которого является команда, значением – делегат, в который передается управление. \\ \hline
@@ -447,15 +448,15 @@ HandlerService & ConfigureStatsCategory
 В приложении используются следующие модели данных:
 
 \begin{itemize}
-	\item Category – модель данных категории.
-	\item Operation – модель данных операции.
-	\item User – модель данных пользователя.
-	\item UnhandledMessage – модель данных сообщения об ошибке.
-	\item Chat – модель данных чата.
-	\item Logs – модель данных логирования приложения.
-	\item LogRequest – модель данных логирования запроса.
-	\item LogResponse – модель данных логирования ответа.
-	\item UserStatus – модель данных статуса пользователя.
+	\item Category – модель данных категории;
+	\item Operation – модель данных операции;
+	\item User – модель данных пользователя;
+	\item UnhandledMessage – модель данных сообщения об ошибке;
+	\item Chat – модель данных чата;
+	\item Logs – модель данных логирования приложения;
+	\item LogRequest – модель данных логирования запроса;
+	\item LogResponse – модель данных логирования ответа;
+	\item UserStatus – модель данных статуса пользователя;
 	\item Context – модель данных контекста пользователя.
 \end{itemize}
 
@@ -497,34 +498,25 @@ public interface IDocumentService<T>
 
 Также, все сервисы реализуют абстрактный класс \linebreak BaseDocumentService, в котором реализованы все базовые методы, нужные для работы приложения.
 
+Описание методов класса BaseDocumentService находится в таблице \ref{table:design:server:db}.
 
-
-
-
-\begin{longtable}{|>{\raggedright}p{0.3\textwidth}|
-		 >{\raggedright}p{0.3\textwidth}|
-		 >{\raggedright\arraybackslash}p{0.32\textwidth}|} 
-	\caption{Классы и методы модуля работы с базой данных}
+\begin{longtable}{|
+		 >{\raggedright}p{0.42\textwidth}|
+		 >{\raggedright\arraybackslash}p{0.53\textwidth}|} 
+	\caption{Методы класса BaseDocumentService}
 	\label{table:design:server:db}\\
 
 	\hline
-	\centering Класс & \centering Метод & \centering\arraybackslash Описание \endfirsthead
+	\centering Метод & \centering\arraybackslash Описание \endfirsthead \hline
 
-	\caption*{Продолжение таблицы \ref{table:design:server:db}}\\\hline
-	\centering 1 & \centering 2 & \centering\arraybackslash 3 \\\hline \endhead
-
-	\hline
-	\centering 1 & \centering 2 & \centering\arraybackslash 3 \\
-	\hline
-
-	BaseDocumentService & GenerateNewId() & Генерирует новый идентификатор. \\ \hline
+	GenerateNewId() & Генерирует новый идентификатор. \\ \hline
 	
-	BaseDocumentService & InsertAsync(T document) & Асинхронно вставляет элемент в коллекцию. \\ \hline
+	InsertAsync(T document) & Асинхронно вставляет элемент в коллекцию. \\ \hline
 
-	BaseDocumentService & UpdateAsync(T document) & Асинхронно обновляет элемент в коллекции. \\ \hline
+	UpdateAsync(T document) & Асинхронно обновляет элемент в коллекции. \\ \hline
 
-	BaseDocumentService & DeleteAsync(string id) & Асинхронно удаляет элемент из коллекции. \\ \hline
+	DeleteAsync(string id) & Асинхронно удаляет элемент из коллекции. \\ \hline
 
-	BaseDocumentService & GetByIdAsync(string id) & Асинхронно производит поиск и возвращает элемент из коллекции. \\ \hline
+	GetByIdAsync(string id) & Асинхронно производит поиск и возвращает элемент из коллекции. \\ \hline
 
 \end{longtable}
