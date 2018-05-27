@@ -187,11 +187,6 @@ public interface ICommandHandlerService
 \label{sec:design:server:СategoryCommandHandlerService}
 
 Обработчик команды /category. Реализует логику приложения, отвечающую за категории. Содержит структуру типа Dictionary<string, \linebreak QuestionsHandlerDelegate>, которая представляет собой словарь, ключом которого является название команды, значением – делегат, в который передается управление.
-Инициализация структуры выполняется методом \linebreak InitializeQuestionsHandlerDictionary.
-
-Методы-значения отвечают за обработку ответов пользователя на вопросы бота, а также генерирование новых вопросов по необходимости.
-
-Также содержит структуру типа QuestionTree, представляющую собой дерево из вопросов пользователю. На рисунке \ref{fig:design:server:category_service_scheme} представлена схема, изображающая структуру для категорий.
 
 \begin{figure}[!h]
 \centering
@@ -199,6 +194,12 @@ public interface ICommandHandlerService
 	\caption{Схема древовидной структуры вопросов по категориям}
 	\label{fig:design:server:category_service_scheme}
 \end{figure}
+
+Инициализация структуры выполняется методом \linebreak InitializeQuestionsHandlerDictionary.
+
+Методы-значения отвечают за обработку ответов пользователя на вопросы бота, а также генерирование новых вопросов по необходимости.
+
+Также содержит структуру типа QuestionTree, представляющую собой дерево из вопросов пользователю. На рисунке \ref{fig:design:server:category_service_scheme} представлена схема, изображающая структуру для категорий.
 
 Пользователю на выбор даются 3 действия с категориями. При выборе удалить, предлагается список категорий для удаления. При выборе добавить, предлагается ввести имя категории, валюту, а также тип. Если тип категории – expense, то бот спустится ниже по дереву и задаст вопрос о том, сколько бы пользователь хотел тратить в месяц. Если категория – income, настройка категории будет считаться завершенной. При выборе изменить, предлагается список категорий для изменения. После выбора категории, запускается тот же сценарий, что и при добавлении.
 
@@ -220,8 +221,6 @@ public interface ICommandHandlerService
 С помощью структуры-словаря, по значению узла контекста
 пользователя, управление передается в обработчик ответов.
 
-\vskip 1.2in
-
 \subsubsection{} OperationCommandHandlerService
 \label{sec:design:server:OperationCommandHandlerService}
 
@@ -230,6 +229,8 @@ public interface ICommandHandlerService
 QuestionsHandlerDelegate>, которая представляет собой словарь, ключом
 которого является название команды, значением – делегат, в который
 передается управление.
+
+\vskip 1in
 
 Инициализация структуры выполняется методом \linebreak
 InitializeQuestionsHandlerDictionary. Метод описан в листинге ниже:
@@ -258,7 +259,7 @@ private void InitializeQuestionsHandlerDictionary()
 \begin{figure}[!h]
 \centering
 	\includegraphics[scale=0.7]{operation_service_scheme.png}
-	\caption{Схема структуры вопросов по категориям}
+	\caption{Схема структуры вопросов по операциям}
 	\label{fig:design:server:operation_service_scheme}
 \end{figure}
 
@@ -277,12 +278,10 @@ public enum CategoryTypeEnum
 Далее управление передается в метод ConfigureOperationType, где с помощью модуля работы с базой данных извлекаются все категории
 пользователя данного типа. Если таких категорий не найдено, с помощью сервиса генерации сообщений об ошибках ResultService,генерируется сообщение о том, что таких категорий не найдено. Если категории найдены, в базу данных записывается операция, а управление передается генератору вопросов.
 
-Общая схема, описывающая процедуру обработки команд операций, представлена на рисунке \ref{fig:design:server:operations_scheme}
-
 \begin{sidewaysfigure}
 \centering
-	\includegraphics[scale=0.29]{operations_scheme.png}
-	\caption{Общая схема работы сервиса категорий}
+	\includegraphics[scale=0.25]{operations_scheme.png}
+	\caption{Общая схема работы сервиса операций}
 	\label{fig:design:server:operations_scheme}
 \end{sidewaysfigure}
 
@@ -290,6 +289,8 @@ public enum CategoryTypeEnum
 \newpage
 
 Метод HandleOperationQuestion класса отвечает за обработку ответов пользователей на вопросы бота. На вход принимает строку-ответ пользователя, и структуру, описывающую самого пользователя.
+
+Общая схема, описывающая процедуру обработки команд операций, представлена на рисунке \ref{fig:design:server:operations_scheme}
 
 \subsubsection{} UnhandledMessageService
 \label{sec:design:server:UnhandledMessageService}
